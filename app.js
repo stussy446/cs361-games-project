@@ -1,3 +1,3 @@
-import * as fas from "fs";
+import "dotenv/config";
 
 console.log("Choo chic");
