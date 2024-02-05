@@ -6,9 +6,17 @@
   <body>
     <h1>Video Game Backlog</h1>
     <p>
-      This is an example paragraph. Anything in the <strong>body</strong> tag
-      will appear on the page, just like this <strong>p</strong> tag and its
-      contents.
+      Welcome to the aggregated video game backlog, where you can see a list of
+      all games users have been playing lately!
     </p>
+    <p>
+      Below are the most recently added games, head over to the Games page for a
+      full list!
+    </p>
+    <ul>
+      <% for (let game of games) { %>
+      <li><%=game.name %></li>
+      <% } %>
+    </ul>
   </body>
 </html>
