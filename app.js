@@ -4,7 +4,7 @@ import "dotenv/config";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import pool from "./database/db-connector.js";
+import pool from "./src/routes/db-connector.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,7 +35,6 @@ app.get("/games", (req, res) => {
   let query1 = `SELECT * FROM games;`;
 
   pool.query(query1, function (error, rows, fields) {
-    console.log(rows);
     res.render("games", { games: rows });
   });
 });
