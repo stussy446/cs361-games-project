@@ -5,6 +5,10 @@
   </head>
   <body>
     <h1>Games</h1>
-    <p>Games are <%= games[0].name %></p>
+    <ul>
+      <% for (let game of games) { %>
+      <li><%=game.name %></li>
+      <% } %>
+    </ul>
   </body>
 </html>
