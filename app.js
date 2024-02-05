@@ -5,6 +5,9 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 
+// Database
+const db = require("./database/db-connector");
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -28,6 +31,7 @@ app.get("/steve", (req, res) => {
   res.render("steve");
 });
 
+// shows resource not found error to user if the route does not exist
 app.use((req, res) => {
   res.status(404);
   res.send(`<h1>Error 404: Resource not found</h1>`);
