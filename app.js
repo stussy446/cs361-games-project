@@ -4,13 +4,12 @@ import "dotenv/config";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-
-// Database
-const db = require("./database/db-connector");
+import pool from "./database/db-connector.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// express configuration
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -20,21 +19,25 @@ app.use(express.static("public"));
 app.set("views", path.join(__dirname, "/src/views"));
 app.set("view engine", "ejs");
 
-// root of app
+// *
+//  ROUTES
+// *
+
+// home page
 app.get("/", (req, res) => {
   res.render("index", {
     title: "Root of project",
   });
 });
 
-app.get("/steve", (req, res) => {
-  res.render("steve");
-});
+// games page
+app.get("/games", (req, res) => {
+  let query1 = `SELECT * FROM games;`;
 
-// shows resource not found error to user if the route does not exist
-app.use((req, res) => {
-  res.status(404);
-  res.send(`<h1>Error 404: Resource not found</h1>`);
+  pool.query(query1, function (error, rows, fields) {
+    console.log(rows);
+    res.render("games", { games: rows });
+  });
 });
 
 // sets app to listen to localhost 3000

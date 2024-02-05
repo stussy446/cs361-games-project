@@ -1,9 +1,10 @@
-// dotenv
+`use strict`;
+
 import "dotenv/config";
-import mysql from mysql2
+import mysql from "mysql2";
 
 // Create a 'connection pool' using the provided credentials
-var pool = mysql.createPool({
+const pool = mysql.createPool({
   connectionLimit: 10,
   host: process.env.MYSQL_HOST,
   user: process.env.MYSQL_USER,
@@ -11,5 +12,4 @@ var pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE,
 });
 
-// Export it for use in our applicaiton
-module.exports.pool = pool;
+export default pool;
