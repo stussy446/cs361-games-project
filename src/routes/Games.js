@@ -2,6 +2,7 @@
 
 import express from "express";
 import { default as pool } from "./db-connector.js";
+import Game from "../models/Game.js";
 
 const router = express.Router();
 
@@ -23,9 +24,9 @@ router.post("/", async (req, res) => {
     const name = req.body.name;
     console.log(`received data from the frontend -- ${name}`);
 
-    const result = await pool
-      .promise()
-      .query(`INSERT INTO games (name) VALUES (?)`, name);
+    let newGame = new Game(name);
+
+    newGame = await newGame.save();
 
     res.json({ message: "Data succesfully Received" });
   } catch (error) {
