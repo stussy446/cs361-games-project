@@ -8,7 +8,11 @@
     <h4>Want to add a new game? Go <a href="/games/add">HERE!</a></h4>
     <ul>
       <% for (let game of games) { %>
-      <li><%=game.name %></li>
+      <li id="game-name"><%=game.name %></li>
+      <button type="submit" id="delete-game" class="btn btn-primary">
+        Delete
+      </button>
+      <script src="/deleteGame.js"></script>
       <% } %>
     </ul>
   </body>

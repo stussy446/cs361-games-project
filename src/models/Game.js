@@ -16,6 +16,14 @@ class Game {
   }
 
   static findAll() {}
+
+  async deleteGame() {
+    let query1 = `DELETE FROM games WHERE name='${this.name}'`;
+
+    const [deletedGame, _] = await pool.promise().query(query1);
+
+    return deletedGame;
+  }
 }
 
 export default Game;

@@ -3,6 +3,7 @@
 import express from "express";
 import { default as pool } from "./db-connector.js";
 import Game from "../models/Game.js";
+import { error } from "console";
 
 const router = express.Router();
 
@@ -31,6 +32,20 @@ router.post("/", async (req, res) => {
     res.json({ message: "Data succesfully Received" });
   } catch (error) {
     console.error("Error inserting data into db", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.delete("/", async (req, res) => {
+  try {
+    const name = req.body.name;
+    // console.log(`received data from the frontend -- ${req}`);
+    let game = new Game(name);
+
+    await game.deleteGame();
+    res.json({ message: "Data deleted" });
+  } catch {
+    console.error("Error deleting data from db", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
