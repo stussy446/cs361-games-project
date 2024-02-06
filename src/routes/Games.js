@@ -14,4 +14,24 @@ router.get("/", (req, res) => {
   });
 });
 
+router.get("/add", (req, res) => {
+  res.render("addGames");
+});
+
+router.post("/", async (req, res) => {
+  try {
+    const name = req.body.name;
+    console.log(`received data from the frontend -- ${name}`);
+
+    const result = await pool
+      .promise()
+      .query(`INSERT INTO games (name) VALUES (?)`, name);
+
+    res.json({ message: "Data succesfully Received" });
+  } catch (error) {
+    console.error("Error inserting data into db", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 export default router;
